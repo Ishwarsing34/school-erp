@@ -33,6 +33,9 @@ coverage/
 *.tmp
 *.temp
 
+
+
+
 # OS generated files
 .DS_Store
 Thumbs.db
