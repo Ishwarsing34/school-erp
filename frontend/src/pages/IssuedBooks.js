@@ -17,7 +17,7 @@ export default function IssuedBooks() {
     setLoading(false);
   };
 
-  useEffect(() => { load(); }, [filter]);
+  useEffect(() => { load(); },);
 
   const handleReturn = async (id) => {
     try {
