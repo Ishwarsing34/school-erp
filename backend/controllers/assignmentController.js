@@ -1,5 +1,8 @@
 const Assignment = require('../models/Assignment');
 
+
+//my assignment related controllers
+
 const createAssignment = async (req, res) => {
   try {
     const { title, description, className, dueDate } = req.body;
@@ -23,9 +26,7 @@ const createAssignment = async (req, res) => {
   }
 };
 
-// @desc    Get all assignments
-// @route   GET /api/assignments
-// @access  Teacher, Student, Admin
+
 const getAssignments = async (req, res) => {
   try {
     const filter = {};
@@ -44,9 +45,7 @@ const getAssignments = async (req, res) => {
   }
 };
 
-// @desc    Get assignment by ID
-// @route   GET /api/assignments/:id
-// @access  All authenticated
+
 const getAssignmentById = async (req, res) => {
   try {
     const assignment = await Assignment.findById(req.params.id).populate('teacherId', 'name email');

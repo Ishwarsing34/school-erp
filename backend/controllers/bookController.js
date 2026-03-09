@@ -1,9 +1,9 @@
 const Book = require('../models/Book');
 const BookIssue = require('../models/BookIssue');
 
-// @desc    Add a book
-// @route   POST /api/books
-// @access  Admin
+
+// all controllers of library systems
+
 const addBook = async (req, res) => {
   try {
     const { title, author, isbn, quantity } = req.body;
@@ -22,9 +22,7 @@ const addBook = async (req, res) => {
   }
 };
 
-// @desc    Get all books
-// @route   GET /api/books
-// @access  All authenticated
+
 const getBooks = async (req, res) => {
   try {
     const books = await Book.find().sort({ createdAt: -1 });
@@ -34,9 +32,7 @@ const getBooks = async (req, res) => {
   }
 };
 
-// @desc    Issue a book to student
-// @route   POST /api/books/issue
-// @access  Admin
+
 const issueBook = async (req, res) => {
   try {
     const { bookId, studentId, dueDate } = req.body;
@@ -49,7 +45,7 @@ const issueBook = async (req, res) => {
     if (!book) return res.status(404).json({ message: 'Book not found' });
     if (book.available <= 0) return res.status(400).json({ message: 'No copies available' });
 
-    // Check if student already has this book
+    // Checking here if student k pass already book hai ya nhi
     const activeIssue = await BookIssue.findOne({ bookId, studentId, returned: false });
     if (activeIssue) {
       return res.status(400).json({ message: 'Student already has this book issued' });
@@ -71,9 +67,7 @@ const issueBook = async (req, res) => {
   }
 };
 
-// @desc    Return a book
-// @route   PUT /api/books/return/:id
-// @access  Admin
+
 const returnBook = async (req, res) => {
   try {
     const issue = await BookIssue.findById(req.params.id);
@@ -84,7 +78,7 @@ const returnBook = async (req, res) => {
     issue.returnDate = new Date();
     await issue.save();
 
-    // Increment available count
+    // book cnt is incremented here
     await Book.findByIdAndUpdate(issue.bookId, { $inc: { available: 1 } });
 
     await issue.populate([
@@ -98,13 +92,12 @@ const returnBook = async (req, res) => {
   }
 };
 
-// @desc    Get all book issues
-// @route   GET /api/books/issues
-// @access  Admin, Student (own)
+
 const getIssues = async (req, res) => {
   try {
     let filter = {};
     if (req.query.studentId) filter.studentId = req.query.studentId;
+    //this will show books jo abhi tak returned nhi huye hai
     if (req.query.returned !== undefined) filter.returned = req.query.returned === 'true';
 
     const issues = await BookIssue.find(filter)

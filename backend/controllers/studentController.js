@@ -1,8 +1,6 @@
 const Student = require('../models/Student');
 
-// @desc    Create a student
-// @route   POST /api/students
-// @access  Admin
+
 const createStudent = async (req, res) => {
   try {
     const { name, email, className, rollNumber, parentName, parentContact } = req.body;
@@ -23,9 +21,6 @@ const createStudent = async (req, res) => {
   }
 };
 
-// @desc    Get all students
-// @route   GET /api/students
-// @access  Admin, Teacher
 const getStudents = async (req, res) => {
   try {
     const students = await Student.find().sort({ createdAt: -1 });
@@ -35,9 +30,7 @@ const getStudents = async (req, res) => {
   }
 };
 
-// @desc    Get student by ID
-// @route   GET /api/students/:id
-// @access  Admin, Teacher
+
 const getStudentById = async (req, res) => {
   try {
     const student = await Student.findById(req.params.id);
@@ -48,9 +41,7 @@ const getStudentById = async (req, res) => {
   }
 };
 
-// @desc    Update student
-// @route   PUT /api/students/:id
-// @access  Admin
+
 const updateStudent = async (req, res) => {
   try {
     const student = await Student.findByIdAndUpdate(req.params.id, req.body, {
