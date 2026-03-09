@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE = 'https://school-erp-nine-gold.vercel.app';
+const BASE = 'https://school-erp-nine-gold.vercel.app/api';
 
 const api = axios.create({ baseURL: BASE });
 
