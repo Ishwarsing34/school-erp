@@ -2,9 +2,9 @@ const Submission = require('../models/Submission');
 const Student = require('../models/Student');
 const Assignment = require('../models/Assignment');
 
-// @desc    Submit assignment
-// @route   POST /api/submissions
-// @access  Student
+
+//all submission cntrollers here
+
 const submitAssignment = async (req, res) => {
   try {
     const { assignmentId, fileUrl, submittedText } = req.body;
@@ -13,7 +13,7 @@ const submitAssignment = async (req, res) => {
       return res.status(400).json({ message: 'Assignment ID is required' });
     }
 
-    // Find the student profile for the logged-in user
+    // take the student details middleware used here so it will verify
     const student = await Student.findOne({ email: req.user.email });
     if (!student) {
       return res.status(404).json({ message: 'Student profile not found. Contact admin.' });
@@ -22,7 +22,7 @@ const submitAssignment = async (req, res) => {
     const assignment = await Assignment.findById(assignmentId);
     if (!assignment) return res.status(404).json({ message: 'Assignment not found' });
 
-    // Check for duplicate submission
+    // Chek for duplicate submission
     const existing = await Submission.findOne({ assignmentId, studentId: student._id });
     if (existing) {
       return res.status(400).json({ message: 'You have already submitted this assignment' });
@@ -50,9 +50,7 @@ const submitAssignment = async (req, res) => {
   }
 };
 
-// @desc    Get all submissions (teacher sees all for their assignments; students see own)
-// @route   GET /api/submissions
-// @access  Teacher, Student
+
 const getSubmissions = async (req, res) => {
   try {
     let filter = {};
@@ -76,9 +74,8 @@ const getSubmissions = async (req, res) => {
   }
 };
 
-// @desc    Evaluate submission (add marks)
-// @route   PUT /api/submissions/:id
-// @access  Teacher
+//evaluating the submission
+
 const evaluateSubmission = async (req, res) => {
   try {
     const { marks } = req.body;

@@ -1,6 +1,6 @@
 const Student = require('../models/Student');
 
-
+//all student related controllers
 const createStudent = async (req, res) => {
   try {
     const { name, email, className, rollNumber, parentName, parentContact } = req.body;
