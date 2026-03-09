@@ -14,7 +14,7 @@ export default function BorrowedBooks() {
       // Instead we just fetch all issues the API returns for this user
     }).catch(() => {});
 
-    // The backend filters by logged-in user's student record automatically when role=student
+    // The backend filters by logged-in users student record automatically when role=student
     getIssues()
       .then(({ data }) => setIssues(data))
       .catch(() => {})

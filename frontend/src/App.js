@@ -3,7 +3,7 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import Sidebar from './components/Sidebar';
 import LoginPage from './pages/LoginPage';
 
-// Admin pages
+// admin pages
 import AdminDashboard from './pages/AdminDashboard';
 import StudentList from './pages/StudentList';
 import AddStudent from './pages/AddStudent';
@@ -12,13 +12,13 @@ import AddBook from './pages/AddBook';
 import IssueBook from './pages/IssueBook';
 import IssuedBooks from './pages/IssuedBooks';
 
-// Teacher pages
+// teacher pages
 import TeacherDashboard from './pages/TeacherDashboard';
 import CreateAssignment from './pages/CreateAssignment';
 import AssignmentList from './pages/AssignmentList';
 import Submissions from './pages/Submissions';
 
-// Student pages
+// student pages
 import StudentDashboard from './pages/StudentDashboard';
 import SubmitAssignment from './pages/SubmitAssignment';
 import MySubmissions from './pages/MySubmissions';
@@ -40,7 +40,7 @@ function AppContent() {
   if (!user) return <LoginPage />;
 
   const renderPage = () => {
-    // Admin views
+    // for admin
     if (user.role === 'admin') {
       switch (view) {
         case 'dashboard':    return <AdminDashboard setView={setView} />;
@@ -54,7 +54,7 @@ function AppContent() {
       }
     }
 
-    // Teacher views
+    // for teacher
     if (user.role === 'teacher') {
       switch (view) {
         case 'dashboard':          return <TeacherDashboard setView={setView} />;
@@ -66,7 +66,7 @@ function AppContent() {
       }
     }
 
-    // Student views
+    // for student
     if (user.role === 'student') {
       switch (view) {
         case 'dashboard':         return <StudentDashboard setView={setView} />;
