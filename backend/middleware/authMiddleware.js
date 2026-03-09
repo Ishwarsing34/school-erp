@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
-// Protect routes - verify JWT
+// middleware which verifies the user is logged in or not
 const protect = async (req, res, next) => {
   let token;
 
@@ -22,7 +22,7 @@ const protect = async (req, res, next) => {
   }
 };
 
-// Role-based authorization
+// this middleware provides role based authorization
 const authorize = (...roles) => {
   return (req, res, next) => {
     if (!roles.includes(req.user.role)) {

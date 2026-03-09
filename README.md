@@ -238,10 +238,3 @@ JWT_EXPIRE=7d
 REACT_APP_API_URL=http://localhost:5000/api
 ```
 
----
-
-## 📌 Notes
-
-- The frontend uses a proxy setting (`"proxy": "http://localhost:5000"`) in package.json, so you can also use relative paths `/api/...` if needed.
-- Student submission filtering: when a student submits, the backend looks up their Student record by matching their User email.
-- For production: hash secrets properly, use HTTPS, and consider rate limiting.
